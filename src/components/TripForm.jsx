@@ -1,4 +1,3 @@
-// TripForm.js
 import React, { useState } from "react";
 
 const TripForm = ({ onSubmit }) => {
