@@ -1,4 +1,3 @@
-// DutyTimeline.js
 import React from "react";
 
 const DutyTimeline = ({ dutyStatuses, date }) => {
@@ -30,7 +29,7 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
   const blockHeight = 40;
   const actualBlockHeight = 32;
   const blockMargin = 8;
-  const headerHeight = 48;
+  const headerHeight = 80;
   const minHeight = Math.max(256, dutyStatuses.length * blockHeight + headerHeight + 40);
 
   return (
@@ -50,7 +49,7 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
       >
         <div
           className="relative"
-          style={{ minWidth: "100%", paddingTop: `${headerHeight}px`, paddingBottom: "20px" }}
+          style={{ minWidth: "100%", paddingTop: `${headerHeight + 8}px`, paddingBottom: "20px" }}
         >
           <div className="sticky top-0 w-full h-1 bg-gray-300 z-10">
             {Array.from({ length: 24 }, (_, hour) => (
@@ -61,7 +60,7 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
               />
             ))}
           </div>
-          <div className="sticky top-0 w-full flex justify-between text-xs text-gray-600 bg-white z-10 pt-2">
+          <div className="sticky top-0 w-full flex justify-between text-xs text-gray-600 bg-white z-10 pt-1">
             {["Midnight", "6:00", "Noon", "18:00", "24:00"].map((time, index) => (
               <div key={index} className="text-center" style={{ width: "20%" }}>
                 {time}
@@ -74,14 +73,22 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
               return null;
             }
             const startMinutes = timeToMinutes(entry.startTime);
-            const endMinutes = timeToMinutes(entry.endTime);
+            let endMinutes = timeToMinutes(entry.endTime);
+            if (endMinutes < startMinutes) {
+              endMinutes += 24 * 60;
+            }
             const width = ((endMinutes - startMinutes) / totalMinutes) * 100;
             const left = (startMinutes / totalMinutes) * 100;
+
+            const durationMinutes = endMinutes - startMinutes;
+            const durationHours = Math.floor(durationMinutes / 60);
+            const durationRemainingMinutes = durationMinutes % 60;
+            const durationText = `${durationHours}h ${durationRemainingMinutes}m`;
 
             return (
               <div
                 key={index}
-                className={`absolute border rounded-lg flex items-center justify-center text-xs font-medium shadow-md ${statusColors[entry.status] || "bg-gray-200 border-gray-400"} hover:z-20 hover:shadow-lg hover:scale-105 transition-all`}
+                className={`absolute border rounded-lg flex items-center justify-center text-xs font-medium shadow-md ${statusColors[entry.status] || "bg-gray-200 border-gray-400"} hover:z-20 hover:shadow-lg hover:scale-105 transition-all relative group`}
                 style={{
                   width: `${Math.max(width, 5)}%`,
                   left: `${left}%`,
@@ -93,6 +100,9 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
                 <span className="px-2 truncate hover:whitespace-normal hover:overflow-visible" title={`${entry.status} (${entry.startTime} - ${entry.endTime})`}>
                   {entry.status} ({entry.startTime} - {entry.endTime})
                 </span>
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                  Duration: {durationText}
+                </div>
               </div>
             );
           })}
