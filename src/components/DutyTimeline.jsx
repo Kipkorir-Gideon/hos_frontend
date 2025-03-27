@@ -1,11 +1,9 @@
 import React from "react";
 
 const DutyTimeline = ({ dutyStatuses, date }) => {
-  console.log("DutyTimeline props:", { dutyStatuses, date });
-
+  
   const timeToMinutes = (time) => {
     if (!time || typeof time !== "string") {
-      console.error("Invalid time value:", time);
       return 0;
     }
     const [hours, minutes] = time.split(":").map(Number);
@@ -22,7 +20,6 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
   };
 
   if (!dutyStatuses || !Array.isArray(dutyStatuses)) {
-    console.error("Invalid dutyStatuses:", dutyStatuses);
     return null;
   }
 
