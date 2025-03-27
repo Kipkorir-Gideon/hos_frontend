@@ -24,7 +24,7 @@ const App = () => {
   const planTrip = async (formData) => {
     setTripState((prev) => ({ ...prev, loading: true, error: null }));
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/plan-trip/`, formData);
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/plan-trip/`, formData);
       setTripState({
         tripData: response.data.trip || {},
         stops: response.data.stops || [],
