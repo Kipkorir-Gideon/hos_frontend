@@ -54,7 +54,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto py-8">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">ELD Trip Planner</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">HOS Trip Planner</h1>
         <TripForm onSubmit={planTrip} />
         {error && (
           <div className="text-center py-4">
