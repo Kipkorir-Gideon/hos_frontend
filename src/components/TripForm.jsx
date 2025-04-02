@@ -33,61 +33,64 @@ const TripForm = ({ onSubmit }) => {
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg border border-gray-200 mb-6">
       <h2 className="text-xl font-bold mb-4 text-gray-800">Plan Your Trip</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Current Location</label>
-          <input
-            type="text"
-            name="currentLocation"
-            value={formData.currentLocation}
-            onChange={handleChange}
-            placeholder="e.g., New York, NY"
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Pickup Location</label>
-          <input
-            type="text"
-            name="pickupLocation"
-            value={formData.pickupLocation}
-            onChange={handleChange}
-            placeholder="e.g., Chicago, IL"
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Dropoff Location</label>
-          <input
-            type="text"
-            name="dropoffLocation"
-            value={formData.dropoffLocation}
-            onChange={handleChange}
-            placeholder="e.g., Los Angeles, CA"
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Current Cycle Used (Hrs)</label>
-          <input
-            type="number"
-            name="cycleUsed"
-            value={formData.cycleUsed}
-            onChange={handleChange}
-            placeholder="e.g., 20"
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-            step="0.1"
-            min="0"
-            max="70"
-          />
+      <form
+        onSubmit={handleSubmit}
+        className="mb-6 bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Current Location</label>
+            <input
+              type="text"
+              name="currentLocation"
+              value={formData.currentLocation}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              placeholder="e.g., New York, NY"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Pickup Location</label>
+            <input
+              type="text"
+              name="pickupLocation"
+              value={formData.pickupLocation}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              placeholder="e.g., Chicago, IL"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Dropoff Location</label>
+            <input
+              type="text"
+              name="dropoffLocation"
+              value={formData.dropoffLocation}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              placeholder="e.g., Los Angeles, CA"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Current Cycle Used (hours)</label>
+            <input
+              type="number"
+              name="cycleUsed"
+              value={formData.cycleUsed}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              placeholder="e.g., 20"
+              step="0.1"
+              required
+            />
+          </div>
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+          className="mt-4 w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
         >
           Plan Trip
         </button>
