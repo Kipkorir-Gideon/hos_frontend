@@ -32,7 +32,7 @@ const TripForm = ({ onSubmit }) => {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg border border-gray-200 mb-6">
-      <h2 className="text-xl font-bold mb-4 text-gray-800">Plan Your Trip</h2>
+      <h2 className="text-xl text-center font-bold mb-4 text-gray-800">Plan Your Trip</h2>
       <form
         onSubmit={handleSubmit}
         className="mb-6 bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto"
