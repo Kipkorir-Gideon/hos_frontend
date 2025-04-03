@@ -1,9 +1,11 @@
 import React from "react";
 
 const DutyTimeline = ({ dutyStatuses, date }) => {
-  
+  console.log("DutyTimeline props:", { dutyStatuses, date });
+
   const timeToMinutes = (time) => {
     if (!time || typeof time !== "string") {
+      console.error("Invalid time value:", time);
       return 0;
     }
     const [hours, minutes] = time.split(":").map(Number);
@@ -20,14 +22,15 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
   };
 
   if (!dutyStatuses || !Array.isArray(dutyStatuses)) {
+    console.error("Invalid dutyStatuses:", dutyStatuses);
     return null;
   }
 
-  const blockHeight = 40;
+  const blockHeight = 10;
   const actualBlockHeight = 32;
   const blockMargin = 8;
-  const headerHeight = 80;
-  const minHeight = Math.max(256, dutyStatuses.length * blockHeight + headerHeight + 40);
+  const headerHeight = 100;
+  const timelineIndicatorHeight = 30;
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg border border-gray-200 mb-6">
@@ -40,10 +43,7 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
           </div>
         ))}
       </div>
-      <div
-        className="relative w-full overflow-x-auto overflow-y-auto custom-scrollbar"
-        style={{ height: `${minHeight}px` }}
-      >
+      <div className="relative w-full">
         <div
           className="relative"
           style={{ minWidth: "100%", paddingTop: `${headerHeight + 8}px`, paddingBottom: "20px" }}
@@ -52,14 +52,25 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
             {Array.from({ length: 24 }, (_, hour) => (
               <div
                 key={hour}
-                className="absolute w-0.5 h-2 bg-gray-400"
+                className="absolute w-0.5 h-2 bg-gray-400 group"
                 style={{ left: `${(hour / 24) * 100}%`, top: "100%" }}
-              />
+              >
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                  {`${hour}:00`}
+                </div>
+              </div>
             ))}
           </div>
-          <div className="sticky top-0 w-full flex justify-between text-xs text-gray-600 bg-white z-10 pt-1">
+          <div className="sticky top-0 w-full text-xs text-gray-600 bg-white z-10 pt-1">
             {["Midnight", "6:00", "Noon", "18:00", "24:00"].map((time, index) => (
-              <div key={index} className="text-center" style={{ width: "20%" }}>
+              <div
+                key={index}
+                className="absolute"
+                style={{
+                  left: `${(index / 4) * 100}%`,
+                  transform: "translateX(-50%)",
+                }}
+              >
                 {time}
               </div>
             ))}
@@ -89,7 +100,7 @@ const DutyTimeline = ({ dutyStatuses, date }) => {
                 style={{
                   width: `${Math.max(width, 5)}%`,
                   left: `${left}%`,
-                  top: `${index * blockHeight}px`,
+                  top: `${index * blockHeight + timelineIndicatorHeight}px`, // Added offset
                   height: `${actualBlockHeight}px`,
                   marginBottom: `${blockMargin}px`,
                 }}
